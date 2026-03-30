@@ -46,3 +46,28 @@ Description               Line item label
 Discount                  Discount (included only if not null)
 _delete                   Set to "true" to remove existing item
 
+
+Setup
+
+Go to Zoho CRM → Setup → Developer Hub → Functions
+Create a new function and paste the code above
+Set the function name to automation.TestingSalesOrderStageToPOReceived
+Ensure the OAuth connection z_crm_oauth exists with read/write access to Quotes and Sales Orders
+Trigger this function from a workflow or blueprint on Sales Orders — pass soid (SO record ID) and quoteid (source Quote record ID) as parameters
+
+
+Requirements
+
+Zoho CRM with Quotes and Sales Orders modules enabled
+A custom Selling_Price field on Quote line items (verify API name via Setup → Developer Hub → APIs → API Names)
+A layout named Technical - UAE on the Quotes module
+An OAuth connection named z_crm_oauth
+Zoho CRM API v8
+
+
+Known Issues
+IssueCauseFixList_Price not updating on some itemsZoho blocks price edits on converted line itemsDelete all items with _delete:true and re-insert freshQuantity defaulting to 1Quantity missing from JSON payloadExplicitly read and include QuantityDescription not showingItem_Description is null; correct field is DescriptionUse item.get("Description")toJSONString() not foundNot available in all Deluge environmentsBuild JSON string manuallyINVALID_DATA: expected jsonobjectRaw Map not serialized correctly by invokeurl PUTPass raw JSON string with Content-Type: application/json
+
+License
+MIT
+
